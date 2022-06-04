@@ -17,11 +17,25 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
+        
     - name: Start Health Check
       run: |
         echo 'Start Health check'
+        
+    - name: File existence check
+      id: check_files
+      uses: andstor/file-existence-action@v1
+      with:
+        files: "README.md, requirements.txt"
+        
+    - name: File exists    
+      if: steps.check_files.outputs.files_exits == 'true'
+      run: |
+        echo 'All files exists!'    
+        
         
