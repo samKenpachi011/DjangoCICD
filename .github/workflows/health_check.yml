@@ -34,9 +34,9 @@ jobs:
         files: "README.md, requirements.txt"
         
     - name: File exists    
-      if: steps.check_files.outputs.files_exits == 'true'
+      if: steps.check_files.outputs.files_exits != 'true'
       run: |
-        echo 'All files exists!'    
+        exit 1    
        
   job1:
     runs-on: ubuntu-latest
