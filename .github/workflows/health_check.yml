@@ -74,7 +74,7 @@ jobs:
     - name: Run migrations
       run: python manage.py migrate   
     - name: Lint with flake8
-      working-directory: ../../blog 
+      working-directory: blog 
       run: |
         echo Inside the dir
         # stop the build if there are Python syntax errors or undefined names
