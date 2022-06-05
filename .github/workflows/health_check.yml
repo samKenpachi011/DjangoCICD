@@ -39,7 +39,7 @@ jobs:
         echo Required files present
 
     - name: Files do not exist  
-      if: steps.check_files.outputs.files_exits != 'true'
+      if: steps.check_files.outputs.files_exits == 'false'
       run: |
         echo Required files are missing
         exit 1     
