@@ -42,7 +42,11 @@ jobs:
       if: steps.check_files.outputs.files_exits == 'false'
       run: |
         echo Required files are missing
-        exit 1     
+        exit 1   
+        
+    - name: Installing Dependencies
+      run: |    
+        pip install -r requirements.txt -U
 
   job1:
     name: Check Style and run tests
