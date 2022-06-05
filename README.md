@@ -20,13 +20,13 @@ django-admin startproject core .
 ## Update the env 
 set keys
 
-## Create a project
+## Create an app
 django-admin startapp blog .
 ## Updated the requirements 
-pip freeze > requirements_production.txt
+pip freeze > requirements.txt
 
 ## Install all the dependencies
-pip install -r requirements_production.txt -U
+pip install -r requirements.txt -U
 
 
 
