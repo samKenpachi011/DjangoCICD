@@ -1,6 +1,7 @@
 .env
 env.py
 .DS_Store
+.vscode
 
 migrations/
 .pydevproject
