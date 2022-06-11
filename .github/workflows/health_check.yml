@@ -33,19 +33,22 @@ jobs:
       with:
         files: "README.md, requirements.txt"
         
-    - name: File exists    
-      if: steps.check_files.outputs.files_exits == 'true'
+    - name: File check    
+    - if: steps.check_files.outputs.files_exits == 'true'
       run: |
         echo Required files present
-
-    - name: Files do not exist  
-      if: steps.check_files.outputs.files_exits == 'false'
+    - if: steps.check_files.outputs.files_exits == 'false'
+    # - uses: actions/checkout@v2
+      uses: JasonEtco/create-an-issue@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      id: create-issue
       run: |
         echo Required files are missing
+        'echo Created issue number ${{ steps.create-issue.outputs.number }}'
+        'echo Created ${{ steps.create-issue.outputs.url }}'
         exit 1   
         
-
-
   job1:
     name: Check Style and run tests
     runs-on: ubuntu-latest

@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 ENV_FILE_PATH = BASE_DIR / ".env"
 
 # dot env read
-dotenv.read_dotenv(str(ENV_FILE_PATH))
+dotenv.dotenv_values(str(ENV_FILE_PATH))
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
 
