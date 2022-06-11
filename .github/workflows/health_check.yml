@@ -39,10 +39,12 @@ jobs:
         echo Required files present
     - if: steps.check_files.outputs.files_exits == 'false'
     # - uses: actions/checkout@v2
+    - name: Create new branch
       uses: JasonEtco/create-an-issue@v2
+      id: create-issue
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      id: create-issue
+      
       run: |
         echo Required files are missing
         'echo Created issue number ${{ steps.create-issue.outputs.number }}'
