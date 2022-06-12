@@ -32,9 +32,10 @@ jobs:
       uses: andstor/file-existence-action@v1
       with:
         files: "README.md, requirements.txt, foo.txt"
-        # allow_failure: true
+        allow_failure: true
 
     - name: Files do not exist  
+      if: ${{ failure() && steps.demo.conclusion == 'failure' }}
       uses: nashmaniac/create-issue-action@v1.1
       with:
         title: File existence check failed
