@@ -39,12 +39,6 @@ jobs:
       run: |
         echo Required files present
 
-    - name: Files do not exist  
-      if: steps.check_files.outputs.files_exits == 'false'
-      run: |
-        exit 1    
-        'echo Required files are missing'
-
     - name: Files do not exist issue trigger
       if: steps.check_files.outputs.files_exits == 'false'
       id: create-issue
@@ -55,6 +49,12 @@ jobs:
         assignees: samKenpachi
         update_existing: true
         search_exisiting: open
+
+    - name: Files do not exist  
+      if: steps.check_files.outputs.files_exits == 'false'
+      run: |
+        exit 1    
+        'echo Required files are missing'    
 
       
       # run: |
