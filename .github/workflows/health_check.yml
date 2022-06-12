@@ -34,8 +34,8 @@ jobs:
         files: "README.md, requirements.txt, foo.txt"
         allow_failure: true
 
-    - name: Files do not exist  
-      if: ${{ failure() && steps.check_files.files_exits == 'false' }}
+    - if: ${{ failure() && steps.check_files.files_exits == 'false' }}
+      name: Issue on file check
       uses: nashmaniac/create-issue-action@v1.1
       with:
         title: File existence check failed
