@@ -35,7 +35,7 @@ jobs:
         allow_failure: true
 
     - name: Files do not exist  
-      if: ${{ failure() && steps.demo.conclusion == 'failure' }}
+      if: ${{ failure() && steps.check_files.conclusion == 'failure' }}
       uses: nashmaniac/create-issue-action@v1.1
       with:
         title: File existence check failed
