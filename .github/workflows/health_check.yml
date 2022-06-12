@@ -23,72 +23,13 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         
-    # - name: Start Health Check
-    #   run: |
-    #     echo 'Start Health check'
-        
-    - name: File existence check
-      id: check_files
-      uses: andstor/file-existence-action@v1
-      with:
-        files: "README.md, requirements.txt"
-        
-    - name: File exists    
-      if: steps.check_files.outputs.files_exits == 'true'
-      run: |
-        echo Required files present
+    - name: Failing step
+      id: demo
+      run: exit 1
 
-    - name: Files do not exist  
-      if: steps.check_files.outputs.files_exits == 'false'
-      run: exit 1   
-         
-        
- 
-  # job1:
-  #   name: Check Style and run tests
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     max-parallel: 4
-  #     matrix:
-  #         python-version: [3.7]
+    - name: The demo step has failed
+      if: ${{ failure() && steps.demo.conclusion == 'failure' }}
+      run: echo 'Job failed'
 
-
-  #   needs: [build]
-  #   steps: 
-  #   - uses: actions/checkout@v3
-    
-  #   - name: Set up Python ${{ matrix.python-version }}
-  #     uses: actions/setup-python@v3
-  #     with:
-  #       python-version: ${{ matrix.python-version }}
-        
-  #   - name: Start Health Check
-  #     run: |
-  #       echo 'Start Health check'
-  #   - name: Installing Dependencies
-  #     run: | 
-  #         python -m pip install --upgrade pip   
-  #         pip install -r requirements.txt -U
-        
-  #   - name: Run migrations
-  #     run: python manage.py migrate   
-  #   - name: Lint with flake8
-  #     working-directory: blog 
-  #     run: |
-  #       # stop the build if there are Python syntax errors or undefined names
-  #       flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-  #       # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-  #       flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-
-  #   - name: Coverage report
-  #     run: |
-  #       pip install coverage
-  #       coverage run manage.py test
-  #       coverage report    
-
-  #   - name: Run tests
-  #     run: |
-  #       python ./manage.py test
-        
         
         
