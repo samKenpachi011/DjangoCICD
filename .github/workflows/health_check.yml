@@ -40,8 +40,7 @@ jobs:
         echo Required files present
 
     - name: Create issue
-      
-    - uses: nashmaniac/create-issue-action@v1.1
+      uses: nashmaniac/create-issue-action@v1.1
       if: steps.check_files.outputs.files_exits == 'false'
       # uses: dacbd/create-issue-action@main
       # env:
