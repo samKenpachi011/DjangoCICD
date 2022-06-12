@@ -41,20 +41,20 @@ jobs:
 
     - name: Files do not exist issue trigger
       if: steps.check_files.outputs.files_exits == 'false'
-      id: create-issue
+      id: create_issue
       uses: JasonEtco/create-an-issue@v2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        assignees: samKenpachi
+        assignees: samKenpachi011
         update_existing: true
         search_exisiting: open
 
-    - name: Files do not exist  
-      if: steps.check_files.outputs.files_exits == 'false'
-      run: |
-        exit 1    
-        'echo Required files are missing'    
+    # - name: Files do not exist  
+    #   if: steps.check_files.outputs.files_exits == 'false'
+    #   run: |
+    #     exit 1    
+    #     'echo Required files are missing'    
 
       
       # run: |
@@ -64,44 +64,44 @@ jobs:
       #   'echo Created ${{ steps.create-issue.outputs.url }}'
           
  
-  job1:
-    name: Check Style and run tests
-    runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 4
-      matrix:
-          python-version: [3.7]
-        # python-version: [3.7, 3.8, 3.9]
+  # job1:
+  #   name: Check Style and run tests
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     max-parallel: 4
+  #     matrix:
+  #         python-version: [3.7]
 
-    needs: [build]
-    steps: 
-    - uses: actions/checkout@v3
+
+  #   needs: [build]
+  #   steps: 
+  #   - uses: actions/checkout@v3
     
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
+  #   - name: Set up Python ${{ matrix.python-version }}
+  #     uses: actions/setup-python@v3
+  #     with:
+  #       python-version: ${{ matrix.python-version }}
         
-    - name: Start Health Check
-      run: |
-        echo 'Start Health check'
-    - name: Installing Dependencies
-      run: | 
-          python -m pip install --upgrade pip   
-          pip install -r requirements.txt -U
+  #   - name: Start Health Check
+  #     run: |
+  #       echo 'Start Health check'
+  #   - name: Installing Dependencies
+  #     run: | 
+  #         python -m pip install --upgrade pip   
+  #         pip install -r requirements.txt -U
         
-    - name: Run migrations
-      run: python manage.py migrate   
-    - name: Lint with flake8
-      working-directory: blog 
-      run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Run tests
-      run: |
-        python ./manage.py test
+  #   - name: Run migrations
+  #     run: python manage.py migrate   
+  #   - name: Lint with flake8
+  #     working-directory: blog 
+  #     run: |
+  #       # stop the build if there are Python syntax errors or undefined names
+  #       flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+  #       # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+  #       flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+  #   - name: Run tests
+  #     run: |
+  #       python ./manage.py test
         
         
         
