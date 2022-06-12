@@ -23,9 +23,9 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         
-    - name: Start Health Check
-      run: |
-        echo 'Start Health check'
+    # - name: Start Health Check
+    #   run: |
+    #     echo 'Start Health check'
         
     - name: File existence check
       id: check_files
@@ -37,8 +37,6 @@ jobs:
       if: steps.check_files.outputs.files_exits == 'true'
       run: |
         echo Required files present
-        exit 1
-
 
     - name: Files do not exist  
       if: steps.check_files.outputs.files_exits == 'false'
