@@ -6,12 +6,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-# TODO: Add a scheduler
-# on:
-#   schedule:
-#     - cron:  '*/15 * * * *'
-
-
 jobs:
   build:
 
@@ -20,7 +14,6 @@ jobs:
       max-parallel: 4
       matrix:
         python-version: [3.7]
-        # python-version: [3.7, 3.8, 3.9]
 
     steps:
     - uses: actions/checkout@v3
@@ -44,12 +37,12 @@ jobs:
       if: steps.check_files.outputs.files_exits == 'true'
       run: |
         echo Required files present
-
     - name: Files do not exist  
       if: steps.check_files.outputs.files_exits == 'false'
       run: |
         echo Required files are missing
         exit 1   
+         
         
  
   # job1:
