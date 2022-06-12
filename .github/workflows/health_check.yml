@@ -39,16 +39,21 @@ jobs:
       run: |
         echo Required files present
 
-    - name: Files do not exist issue trigger
+    - name: Create issue
       if: steps.check_files.outputs.files_exits == 'false'
-      id: create_issue
-      uses: JasonEtco/create-an-issue@v2
+      uses: nashmaniac/create-issue-action@v1.1
+      # uses: dacbd/create-issue-action@main
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        assignees: samKenpachi011
-        update_existing: true
-        search_exisiting: open
+        title: Linter Failed
+        token: ${{secrets.GITHUB_TOKEN}}
+        assignees: ${{github.actor}}
+        labels: change-needed
+        body: Workflow failed for commit ${{github.sha}}
+        # assignees: ${{github.actor}}
+        # update_existing: true
+        # search_exisiting: open
 
     # - name: Files do not exist  
     #   if: steps.check_files.outputs.files_exits == 'false'
