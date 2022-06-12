@@ -31,8 +31,19 @@ jobs:
       id: check_files
       uses: andstor/file-existence-action@v1
       with:
-        files: "README.md, requirements.txt"
+        files: "README.md, requirements.txt, foo.txt"
         allow_failure: true
+
+    - name: Files do not exist  
+      if: ${{ failure() && steps.check_files.files_exits == 'false' }}
+      uses: nashmaniac/create-issue-action@v1.1
+      with:
+        title: File existence check failed
+        token: ${{secrets.GITHUB_TOKEN}}
+        assignees: ${{github.actor}}
+        labels: worflow-failed
+        body: Job failed for commit ${{github.sha}}    
+
 
   job1:
     name: Check style and run tests
