@@ -43,7 +43,10 @@ jobs:
         assignees: ${{github.actor}}
         labels: worflow-failed
         body: Job failed for commit ${{github.sha}}    
-      run: exit 1  
+      
+    - name: Files do not exist exit 
+      if: ${{ steps.check_files.files_exits == 'false' }}  
+      run: exit 1 
 
 
   job1:
