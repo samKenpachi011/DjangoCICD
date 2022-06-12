@@ -27,33 +27,38 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         
-    - name: Start Health Check
-      run: |
-        echo 'Start Health check'
+    # - name: Start Health Check
+    #   run: |
+    #     echo 'Start Health check'
         
-    - name: File existence check
-      id: check_files
-      uses: andstor/file-existence-action@v1
-      with:
-        files: "README.md, requirements.txt"
+    # - name: File existence check
+    #   id: check_files
+    #   uses: andstor/file-existence-action@v1
+    #   with:
+    #     files: "README.md, requirements.txt"
         
-    - name: File check    
-      if: steps.check_files.outputs.files_exits == 'true'
-      run: |
-        echo Required files present
-
+    # - name: File check    
+    #   if: steps.check_files.outputs.files_exits == 'true'
+    #   run: |
+    #     echo Required files present
+    - uses: actions/checkout@v2
     - name: Create issue
-      uses: nashmaniac/create-issue-action@v1.1
-      if: steps.check_files.outputs.files_exits == 'false'
+      # if: steps.check_files.outputs.files_exits == 'false'
+      uses: actions/checkout@v2
+
       # uses: dacbd/create-issue-action@main
-      # env:
-      #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        title: Requirements fail
-        token: ${{secrets.GITHUB_TOKEN}}
+        # title: Requirements fail
+        # token: ${{secrets.GITHUB_TOKEN}}
         assignees: ${{github.actor}}
-        labels: update-needed
-        body: Workflow failed for commit ${{github.sha}}
+        milestone: 1
+        update_existing: true
+        search_existing: all
+
+        # labels: update-needed
+        # body: Workflow failed for commit ${{github.sha}}
         # assignees: ${{github.actor}}
         # update_existing: true
         # search_exisiting: open
