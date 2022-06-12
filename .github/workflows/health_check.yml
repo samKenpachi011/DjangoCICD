@@ -35,7 +35,6 @@ jobs:
         # allow_failure: true
 
     - name: Files do not exist  
-      if: steps.check_files.outputs.files_exits == 'false'
       uses: nashmaniac/create-issue-action@v1.1
       with:
         title: File existence check failed
