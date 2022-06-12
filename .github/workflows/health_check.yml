@@ -35,7 +35,7 @@ jobs:
         # allow_failure: true
 
     - name: Files do not exist  
-      if: ${{ failure() && steps.check_files.files_exits == 'false' }}
+      if: ${{ steps.check_files.outputs.files_exits == 'false' }}
       uses: nashmaniac/create-issue-action@v1.1
       with:
         title: File existence check failed
@@ -45,7 +45,7 @@ jobs:
         body: Job failed for commit ${{github.sha}}    
       
     - name: Files do not exist exit 
-      if: ${{ steps.check_files.files_exits == 'false' }}  
+      if: ${{ steps.check_files.outputs.files_exits == 'false' }}  
       run: exit 1 
 
 
