@@ -40,16 +40,17 @@ jobs:
         echo Required files present
 
     - name: Create issue
+      
+    - uses: nashmaniac/create-issue-action@v1.1
       if: steps.check_files.outputs.files_exits == 'false'
-      uses: nashmaniac/create-issue-action@v1.1
       # uses: dacbd/create-issue-action@main
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # env:
+      #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        title: Linter Failed
+        title: Requirements fail
         token: ${{secrets.GITHUB_TOKEN}}
         assignees: ${{github.actor}}
-        labels: change-needed
+        labels: update-needed
         body: Workflow failed for commit ${{github.sha}}
         # assignees: ${{github.actor}}
         # update_existing: true
